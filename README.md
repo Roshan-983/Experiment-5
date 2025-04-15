@@ -1,64 +1,41 @@
 # Experiment-5
 
 #include <stdio.h>
-#include <stdlib.h>
 
-// Node structure
-struct Node {
-    int data;
-    struct Node* next;
-};
-
-struct Node* head = NULL;
-
-// Function to insert at end
-void insert(int value) {
-    struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
-    newNode->data = value;
-    newNode->next = NULL;
-
-    if (head == NULL) {
-        head = newNode;
-    } else {
-        struct Node* temp = head;
-        while (temp->next != NULL)
-            temp = temp->next;
-        temp->next = newNode;
-    }
-}
-
-// Function to display list
-void display() {
-    struct Node* temp = head;
-    printf("Linked List: ");
-    while (temp != NULL) {
-        printf("%d -> ", temp->data);
-        temp = temp->next;
-    }
-    printf("NULL\n");
-}
-
-// Main function with menu
 int main() {
-    int choice, value;
+    int arr[100], n, i, j, min, temp;
 
-    while (1) {
-        printf("\n1. Insert\n2. Display\n3. Exit\n");
-        printf("Enter your choice: ");
-        scanf("%d", &choice);
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
 
-        if (choice == 1) {
-            printf("Enter value to insert: ");
-            scanf("%d", &value);
-            insert(value);
-        } else if (choice == 2) {
-            display();
-        } else if (choice == 3) {
-            break;
-        } else {
-            printf("Invalid choice!\n");
+    printf("Enter %d elements:\n", n);
+    for (i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    // Selection sort
+    for (i = 0; i < n - 1; i++) {
+        min = i;
+        for (j = i + 1; j < n; j++) {
+            if (arr[j] < arr[min]) {
+                min = j;
+            }
+        }
+
+        // Swap if new minimum is found
+        if (min != i) {
+            temp = arr[i];
+            arr[i] = arr[min];
+            arr[min] = temp;
         }
     }
+
+    // Display sorted array
+    printf("Sorted array:\n");
+    for (i = 0; i < n; i++) {
+        printf("%d ", arr[i]);
+    }
+    printf("\n");
 
     return 0;
 }
